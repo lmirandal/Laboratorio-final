@@ -20,9 +20,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      
-      - name: Validate Project SonarCloud
-        uses: 
     
       - name: SonarCloud Scan
         run: |
