@@ -1,0 +1,40 @@
+name: CI pipeline
+
+on:
+  push:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Clonacion del codigo
+        uses: actions/checkout@v4
+      
+      #Necesario para SonarCloud
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4.2.1
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      
+      - name: Validate Project SonarCloud
+        uses: 
+    
+      - name: SonarCloud Scan
+        run: |
+          mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
+          -Dsonar.token=${{secrets.SONAR_TOKEN}} \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.organization=lmirandal \
+          -Dsonar.projectKey=${{ github.event.repository.name }}
+
+      - name: SonarQube Quality Gate check
+        uses: sonarsource/sonarqube-quality-gate-action@v1.1.0
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
