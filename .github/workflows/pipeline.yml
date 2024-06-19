@@ -37,6 +37,8 @@ jobs:
       #SCA
       - name: Dependency Check
         uses: dependency-check/Dependency-Check_Action@1.1.0
+        env:
+          JAVA_HOME: /opt/jdk
         with:
           project: '${{ github.event.repository.name }}'
           path: '.'
