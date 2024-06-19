@@ -36,12 +36,17 @@ jobs:
 
       #SCA
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: 16.17.0
 
       - name: Install dependencies
         run: npm install
+
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
 
       - name: Dependency Check
         uses: dependency-check/Dependency-Check_Action@1.1.0
