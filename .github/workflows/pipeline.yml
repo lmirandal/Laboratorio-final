@@ -35,6 +35,14 @@ jobs:
           SONAR_HOST_URL: https://sonarcloud.io
 
       #SCA
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.17.0
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Dependency Check
         uses: dependency-check/Dependency-Check_Action@1.1.0
         env:
