@@ -50,19 +50,7 @@ jobs:
       - name: Run build
         run: npm run build
 
-      - name: Dependency Check
-        uses: dependency-check/Dependency-Check_Action@1.1.0
-        env:
-          JAVA_HOME: /opt/jdk
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v4
         with:
-          project: '${{ github.event.repository.name }}'
-          path: '.'
-          format: 'HTML'
-          args: >
-            --disableYarnAudit
-        
-      - name: Upload Test Result
-        uses: actions/upload-artifact@master
-        with:
-          name: DependencyCheck Report
-          path: ${{github.workspace}}/reports
+          fail-on-severity: moderate
