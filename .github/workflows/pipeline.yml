@@ -44,16 +44,11 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run build
-        run: npm run build
-
       - name: Run install
         uses: borales/actions-yarn@v4
         with:
           cmd: install
+          
       - name: Dependency Check
         uses: dependency-check/Dependency-Check_Action@1.1.0
         env:
@@ -62,7 +57,8 @@ jobs:
           project: '${{ github.event.repository.name }}'
           path: '.'
           format: 'HTML'
-          failOnCVSS: 4
+          args: >
+            --failOnCVSS 4
       
       - name: Upload Test Result
         uses: actions/upload-artifact@master
