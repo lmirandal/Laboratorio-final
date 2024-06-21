@@ -68,7 +68,7 @@ jobs:
 
       - name: Analizar reporte de Dependency-Check
         run: |
-          CVSS_LEVEL=$(jq -r '.vulnerabilities[].cvssv3.baseSeverity' ${{github.workspace}}/reports/dependency-check-report.json)
+          CVSS_LEVEL=$(jq -r '.vulnerabilities[].cvssv3.baseSeverity' /github/workspace/reports/dependency-check-report.json)
 
           if [[ "$CVSS_LEVEL" == "CRITICAL" || "$CVSS_LEVEL" == "HIGH" || "$CVSS_LEVEL" == "MEDIUM" ]]; then
             echo "Se encontraron vulnerabilidades con nivel Medio o superior. La construcción fallará."
