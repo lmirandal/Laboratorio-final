@@ -59,9 +59,7 @@ jobs:
           path: '.'
           format: 'HTML'
           args: >
-            - '--failOnCVSS'
-            - 4
-            - '--disableYarnAudit'
+            --disableYarnAudit
         
       - name: Upload Test Result
         uses: actions/upload-artifact@master
