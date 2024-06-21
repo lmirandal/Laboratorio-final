@@ -72,10 +72,12 @@ jobs:
           CVSS_LEVEL=$(grep -oP 'pkg:npm/[^@]+@[^ ]+ ([A-Z]+)' ${{github.workspace}}/reports/dependency-check-report.html | awk '{print $2}')
 
           # Verificar si el nivel de CVSS es mayor o igual a 4
-          echo "$CVSS_LEVEL"
           if [[ "$CVSS_LEVEL" == "CRITICAL" || "$CVSS_LEVEL" == "HIGH" || "$CVSS_LEVEL" == "MEDIUM" ]]; then
             echo "Se encontraron vulnerabilidades con CVSS > MEDIUM. La construcción fallará."
             exit 1
           else
             echo "No se encontraron vulnerabilidades críticas."
+            echo "Nivel de CVSS encontrado: $CVSS_LEVEL"
           fi
+
+           echo "Nivel de CVSS encontrado: $CVSS_LEVEL"
