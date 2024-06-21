@@ -53,4 +53,12 @@ jobs:
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v4
         with:
+          base-ref: main
+          head-ref: feature-Luis-Miranda
           fail-on-severity: moderate
+      
+      - name: Upload Test Result
+        uses: actions/upload-artifact@master
+        with:
+          name: DependencyCheck Report
+          path: ${{github.workspace}}/reports
