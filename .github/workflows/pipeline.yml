@@ -20,6 +20,10 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - name: Listar variables JAVA_HOME
+        run: |
+          printenv | grep "JAVA_HOME"
     
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
