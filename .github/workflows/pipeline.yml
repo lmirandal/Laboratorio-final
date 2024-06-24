@@ -83,6 +83,13 @@ jobs:
         run: |
           docker push gode23/netflix-app:latest
 
+      - name: Ejecutar contenedor Docker
+        uses: addnab/docker-run-action@v3
+        with:
+          image: gode23/netflix-app:latest
+          ports: 8081:80
+          detach: true
+
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.20.0
         with:
@@ -96,7 +103,7 @@ jobs:
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.12.0
         with:
-          target: 'http://localhost:8080'
+          target: 'http://localhost:8081'
 
       - name: Guardar reporte como artefacto
         uses: actions/upload-artifact@v2
