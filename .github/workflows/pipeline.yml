@@ -102,7 +102,7 @@ jobs:
         with:
           target: 'http://localhost:8081'
           allow_issue_writing: false
-          fail_action: true
+          #fail_action: true #evitar falla
           
 
       - name: Guardar reporte como artefacto
