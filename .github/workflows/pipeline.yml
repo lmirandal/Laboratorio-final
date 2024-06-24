@@ -83,12 +83,9 @@ jobs:
         run: |
           docker push gode23/netflix-app:latest
 
-      - name: Ejecutar contenedor Docker
-        uses: addnab/docker-run-action@v3
-        with:
-          image: gode23/netflix-app:latest
-          ports: 8081:80
-          detach: true
+      - name: Start Docker
+        run: |
+          docker run -d --name netflix-app -p 8081:80 gode23/netflix-app:latest
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.20.0
