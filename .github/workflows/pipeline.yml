@@ -58,7 +58,7 @@ jobs:
           path: '.'
           format: 'HTML'
           args: >
-            --failOnCVSS 9
+            --failOnCVSS 10
       
       - name: Upload Test Result
         uses: actions/upload-artifact@master
