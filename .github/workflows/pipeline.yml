@@ -101,10 +101,12 @@ jobs:
         uses: zaproxy/action-baseline@v0.12.0
         with:
           target: 'http://localhost:8081'
-          token: ${{ secrets.GITHUB_TOKEN }}
+          allow_issue_writing: false
+          fail_action: true
+          
 
       - name: Guardar reporte como artefacto
         uses: actions/upload-artifact@v2
         with:
-          name: zap-report
-          path: zap-report.html
+          name: zap_scan
+          path: zap_scan.html
