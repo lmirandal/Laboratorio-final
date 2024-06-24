@@ -96,6 +96,7 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH,MEDIUM'
+          output: 'report.json'
       
       - name: Guardar reporte como artefacto
         uses: actions/upload-artifact@master
