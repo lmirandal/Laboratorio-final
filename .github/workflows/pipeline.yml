@@ -77,8 +77,18 @@ jobs:
 
       - name: Docker build
         run: |
-          docker build -t gode23/Laboratorio-final:latest .
+          docker build -t gode23/netflix-app:latest .
 
       - name: Docker push
         run: |
-          docker push gode23/Laboratorio-final:latest
+          docker push gode23/netflix-app:latest
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          image-ref: 'docker.io/gode23/netflix-app'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH,MEDIUM'
