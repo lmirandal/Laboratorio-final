@@ -91,17 +91,17 @@ jobs:
         uses: aquasecurity/trivy-action@0.20.0
         with:
           image-ref: 'docker.io/gode23/netflix-app'
-          format: 'sarif'
+          format: 'HTML'
           exit-code: '1'
           ignore-unfixed: true
-          #vuln-type: 'os,library'
+          vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH,MEDIUM'
       
       - name: Guardar reporte como artefacto
         uses: actions/upload-artifact@master
         with:
           name: trivy-report
-          path: report.sarif
+          path: report.html
 
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.12.0
