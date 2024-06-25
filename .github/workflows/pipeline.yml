@@ -117,7 +117,7 @@ jobs:
           name: zap_scan
           path: zap_scan.html
 
-deploy:
+  deploy:
     needs: build
     runs-on: self-hosted
 
