@@ -28,7 +28,7 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: SonarQube Quality Gate check
@@ -58,7 +58,7 @@ jobs:
           path: '.'
           format: 'HTML'
           #args: >
-          #  --failOnCVSS 4
+          #  --failOnCVSS 4 #Descomentar para que falle si encuentra vulnerabilidad sobre MEDIA
       
       - name: Upload Test Result
         uses: actions/upload-artifact@master
@@ -109,10 +109,23 @@ jobs:
         with:
           target: 'http://localhost:8081'
           allow_issue_writing: false
-          #fail_action: true #evitar falla
+          #fail_action: true #Descomentar para que falle si encuentra vulnerabilidad
 
       - name: Guardar reporte como artefacto
         uses: actions/upload-artifact@master
         with:
           name: zap_scan
           path: zap_scan.html
+
+deploy:
+    needs: build
+    runs-on: self-hosted
+
+    steps:
+
+      - name: Clonacion del codigo
+        uses: actions/checkout@v4
+
+      - name: Despliegue
+        run: |
+          kubectl apply -f deploy.yaml
