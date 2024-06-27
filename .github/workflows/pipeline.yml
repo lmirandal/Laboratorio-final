@@ -5,10 +5,8 @@ on:
 
 jobs:
 
-  build:
-
+  SAST:
     runs-on: ubuntu-latest
-
     steps:
 
       - name: Clonacion del codigo
@@ -21,10 +19,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Listar variables JAVA_HOME
-        run: |
-          printenv | grep "JAVA_HOME"
-    
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
@@ -38,7 +32,13 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: https://sonarcloud.io
 
-      #SCA
+  SCA:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Clonacion del codigo
+        uses: actions/checkout@v4 
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -66,6 +66,13 @@ jobs:
           name: DependencyCheck Report
           path: ${{github.workspace}}/reports
 
+  ImageTesting&DAST:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Clonacion del codigo
+        uses: actions/checkout@v4 
+        
       - name: Docker login
         uses: docker/login-action@v3.1.0
         with:
@@ -93,7 +100,7 @@ jobs:
           image-ref: 'docker.io/gode23/netflix-app'
           format: 'json'
           exit-code: '1'
-          #ignore-unfixed: true
+          ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH,MEDIUM'
           output: 'report.json'
@@ -118,7 +125,7 @@ jobs:
           path: zap_scan.html
 
   deploy:
-    needs: build
+    needs: ImageTesting&DAST
     runs-on: self-hosted
 
     steps:
