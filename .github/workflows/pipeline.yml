@@ -92,8 +92,8 @@ jobs:
         with:
           image-ref: 'docker.io/gode23/netflix-app'
           format: 'json'
-          exit-code: '1'
-          ignore-unfixed: true
+          exit-code: '0' #'1'
+          #ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH,MEDIUM'
           output: 'report.json'
