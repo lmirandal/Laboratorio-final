@@ -16,4 +16,4 @@ spec:
       - name: netflix-app
         image: gode23/netflix-app:latest
         ports:
-        - containerPort: 8081
+        - containerPort: 80
