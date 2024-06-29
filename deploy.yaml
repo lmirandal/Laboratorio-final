@@ -17,3 +17,9 @@ spec:
         image: gode23/netflix-app:latest
         ports:
         - containerPort: 80
+        env:
+        - name: TMDB_V3_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: TMDB_V3_API_KEY
+              key: TMDB_V3_API_KEY
